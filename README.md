@@ -1,97 +1,28 @@
-# DoItNow - Full Environment Setup
+# Do It Now – Task Manager App
 
-- Frontend app: `DoItNow/` (Expo, web/PWA target)
-- Backend API: `server/` (Go)
-- DB/Auth: Supabase
+## What is it?
 
-## 1) Frontend (Expo) setup
+Do It Now is a simple personal task manager web app built with React Native (Expo). It helps users organize tasks using a clean board system with the following stages: To Do, In Progress, In Review, and Done. The app focuses on clarity and speed, making task management easy and visual.
 
-From repo root:
+## Objective
 
-```bash
-cd DoItNow
-npm install
-```
+The goal of the app is to improve personal productivity by allowing users to:
 
-Install Supabase-related frontend packages:
+- Create and manage tasks quickly
+- Move tasks through different workflow stages
+- Stay organized using a simple Kanban-style board system
 
-```bash
-npx expo install @supabase/supabase-js @react-native-async-storage/async-storage react-native-url-polyfill
-```
+This is not a group collaboration tool—it is designed for individual task tracking and personal workflow management.
 
-Run frontend:
+## Technologies Used
 
-```bash
-npm run web
-```
+- **React Native (Expo)** – web application UI
+- **TypeScript** – type-safe JavaScript development
+- **Supabase** – backend database and authentication
 
-Docs:
-- [Expo start/develop](https://docs.expo.dev/get-started/start-developing/)
-- [Supabase + React Native quickstart](https://supabase.com/docs/guides/auth/quickstarts/react-native)
+## Features
 
-## 2) Backend (Go) setup
-
-Install Go:
-- [Go download](https://go.dev/dl/)
-
-Verify:
-
-```bash
-go version
-```
-
-From repo root:
-
-```bash
-cd server
-go mod init doitnow/server
-go get github.com/supabase-community/supabase-go
-go get github.com/joho/godotenv
-```
-
-Docs:
-- [Go module setup](https://go.dev/doc/tutorial/create-module)
-- [supabase-go README](https://github.com/supabase-community/supabase-go/blob/main/README.md)
-
-## 3) Supabase project values
-
-Get values from:
-- [Supabase Dashboard](https://supabase.com/dashboard)
-- Path: **Project Settings -> API**
-
-Copy:
-- `Project URL`
-- `service_role` key (backend only)
-
-Docs:
-- [Supabase API keys](https://supabase.com/docs/guides/api/api-keys)
-- [Supabase API overview](https://supabase.com/docs/guides/api)
-
-## 4) Local backend env file
-
-Create `server/.env`:
-
-```env
-SUPABASE_URL=https://YOUR_PROJECT.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY
-```
-
-Make sure `.env` is gitignored.
-
-## 5) Verify backend env works
-
-From `server/`:
-
-Note: this command validates required environment variables (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) and exits. It does not start HTTP routes yet.
-
-```bash
-go run .
-```
-
-Expected:
-
-```text
-env ok (keys not printed)
-```
-
-If you see that line, environment setup is complete.
+- Kanban-style board workflow
+- Task progression tracking (To Do → Done)
+- Clean and minimal UI
+- Cloud data storage with Supabase
