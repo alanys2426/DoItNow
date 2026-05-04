@@ -1,5 +1,5 @@
 
-// import a custom hook that gives theme info (light/dark)
+// Import a custom hook that gives theme info (light/dark)
 import { useThemeMode } from '@/context/theme-mode-context';
 
 // Get current color scheme
