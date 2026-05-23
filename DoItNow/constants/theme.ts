@@ -1,53 +1,82 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
 
-import { Platform } from 'react-native';
+import { ColorSchemeName, Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// App color palette
+export const palette = {
+  inkBlack: '#040F0F',
+  whiteSmoke: '#F2F2F2',
+  shadowGray: '#2E282A',
+  mintLeaf: '#49AE79',
+  mintLeafHover: '#5EB88A',
+  mintLeafPressed: '#3D8F63',
+  slateGray: '#627C85',
+} as const; // 
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
-};
+// Possible board column IDs
+export type BoardColumnId = 
+  | 'todo'
+  | 'inprogress'
+  | 'review'
+  | 'done';
 
+// List of board columns
+export const boardColumns: Array<{
+  id: BoardColumnId;
+  label: string;
+}> = [
+  { id: 'todo', label: 'To Do' },
+  { id: 'inprogress', label: 'In Progress' },
+  { id: 'review', label: 'In Review' },
+  { id: 'done', label: 'Done' },
+];
+
+// Platform-specific fonts
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
+    heading: 'ui-rounded',
+    body: 'system-ui',
   },
   web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+    heading: "'SF Pro Rounded', 'Segoe UI', Inter, Arial, sans-serif",
+    body: "Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+  },
+  default: {
+    heading: 'sans-serif',
+    body: 'sans-serif',
   },
 });
+
+// Type for app theme object
+export type AppTheme = ReturnType<typeof getAppTheme>;
+
+// Function to generate app theme
+export function getAppTheme (
+  colorScheme: ColorSchemeName
+) {
+
+  // Check if dark mode is active
+  const dark = colorScheme === 'dark';
+
+  // Return theme object
+  return {
+    // Boolean showing if theme is dark
+    dark,
+
+    // App colors
+    colors: {
+
+      background: dark ? palette.inkBlack : palette.whiteSmoke,
+      surface: dark ? palette.shadowGray : palette.whiteSmoke,
+      surfaceAlt: dark ? palette.inkBlack : palette.whiteSmoke,
+      text: dark ? palette.whiteSmoke : palette.shadowGray,
+      textMuted: palette.slateGray,
+      border: dark ? palette.slateGray : palette.shadowGray,
+      accent: palette.mintLeaf,
+      accentSoft: palette.shadowGray,
+      danger: '#B3261E',
+    },
+
+    // App fonts
+    fonts: Fonts,
+  };
+}
