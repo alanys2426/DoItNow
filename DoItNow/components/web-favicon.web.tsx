@@ -110,6 +110,6 @@ export function WebFaviconSync() {
         replaceLinkById('web-favicon-apple', apple);
     }, [resolvedScheme]);
 
-    // THis component doesn't render anything visible
+    // This component doesn't render anything visible
     return null;
 }
